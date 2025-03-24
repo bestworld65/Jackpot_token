@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("9rAM63S9HEt59wd8iQFTJfWzjHprX4biZ9XAp1eobCwH");
+declare_id!("H7qf9YEJMmqAqt3zYo3GfnTWHBZZj98P8vWeNuvuRKG2");
 
 #[program]
 pub mod jackpot_token {
