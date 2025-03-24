@@ -1,0 +1,13 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@raydium-io/raydium-sdk-v2": "^0.1.118-alpha",
+    "@solana/spl-token": "^0.4.13",
+    "@solana/web3.js": "^1.98.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
