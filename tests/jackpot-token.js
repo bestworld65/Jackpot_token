@@ -118,37 +118,34 @@ describe("jackpot-token", () => {
   });
 
   it("Initialize", async () => {
-    const [statePda, bump] = PublicKey.findProgramAddressSync(
-      [Buffer.from("state")],
-      program.programId
-    );
+    const [statePda, bump] = PublicKey.findProgramAddressSync([Buffer.from("state")], program.programId);
     console.log("State PDA:", statePda.toBase58());
     console.log("Bump:", bump);
-
-    const tx = await program.methods
-      .initialize(global.tokenMint, wallet.publicKey)
-      .accounts({
-        state: statePda,
-        signer: wallet.publicKey,
-        system_program: SystemProgram.programId, // Fix typo from "systemProgram"
-      })
-      .transaction();
-
-    tx.feePayer = wallet.publicKey;
-    tx.recentBlockhash = (await provider.connection.getLatestBlockhash()).blockhash;
-    console.log("Transaction before signing:", tx);
-    console.log("Expected signer:", wallet.publicKey.toBase58());
-
+  
+    let state;
     try {
+      state = await program.account.programState.fetch(statePda);
+      console.log("State already initialized:", state);
+    } catch (err) {
+      const tx = await program.methods
+        .initialize(global.tokenMint, wallet.publicKey)
+        .accounts({
+          state: statePda,
+          signer: wallet.publicKey,
+          systemProgram: SystemProgram.programId,
+        })
+        .transaction();
+  
+      tx.feePayer = wallet.publicKey;
+      tx.recentBlockhash = (await provider.connection.getLatestBlockhash()).blockhash;
+      console.log("Transaction before signing:", tx);
+  
       const signature = await provider.sendAndConfirm(tx, [wallet.payer]);
       console.log("Initialize tx signature:", signature);
-    } catch (err) {
-      console.error("Initialize failed:", err);
-      throw err;
+  
+      state = await program.account.programState.fetch(statePda);
+      console.log("State initialized:", state);
     }
-
-    const state = await program.account.programState.fetch(statePda);
-    console.log("State initialized:", state);
     global.statePda = statePda;
   });
 
