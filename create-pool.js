@@ -1,4 +1,4 @@
-const { Connection, Keypair, PublicKey, LAMPORTS_PER_SOL } = require('@solana/web3.js');
+const { Connection, Keypair, LAMPORTS_PER_SOL } = require('@solana/web3.js');
 const { createMarket, addLiquidity } = require('@raydium-io/raydium-sdk'); // Simplified, requires full integration
 const fs = require('fs');
 

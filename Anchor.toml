@@ -4,14 +4,14 @@
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-jackpot_token = "H7qf9YEJMmqAqt3zYo3GfnTWHBZZj98P8vWeNuvuRKG2"
+[programs.devnet]
+jackpot_token = "C6Uk8RTeXcm6ntZtjcA2xWnDrYCJMKdWctJgfo3GTHWW"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
